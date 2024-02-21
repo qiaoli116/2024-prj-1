@@ -1,23 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Form</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Page</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .product {
+        margin-bottom: 20px;
+    }
+    .product label {
+        font-weight: bold;
+    }
+    .product input {
+        margin-left: 10px;
+    }
+    .submit-btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
 </head>
 <body>
-    <h1>Order Form</h1>
-    <form action="submit_order.php" method="POST">
-        <label for="product_name">Product Name:</label>
-        <input type="text" id="product_name" name="product_name" required><br><br>
+<div class="container">
+    <h1>Order Page</h1>
+    <div class="product">
+        <label for="macbook">Apple MacBook Pro 2019 ($1200):</label>
+        <input type="number" id="macbook" name="macbook" value="0" min="0">
+    </div>
+    <div class="product">
+        <label for="iphone">iPhone 13 Pro Alpine Green 2022 ($1200):</label>
+        <input type="number" id="iphone" name="iphone" value="0" min="0">
+    </div>
+    <button class="submit-btn" onclick="submitOrder()">Submit Order</button>
+    <p id="order-status"></p>
+</div>
+
+<script>
+    function submitOrder() {
+        var macbookQty = parseInt(document.getElementById('macbook').value);
+        var iphoneQty = parseInt(document.getElementById('iphone').value);
         
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" min="1" required><br><br>
+        var totalItems = macbookQty + iphoneQty;
         
-        <label for="address">Shipping Address:</label>
-        <textarea id="address" name="address" rows="4" required></textarea><br><br>
-        
-        <input type="submit" value="Submit Order">
-    </form>
+        if (totalItems > 0) {
+            var totalPrice = (macbookQty * 1200) + (iphoneQty * 1200);
+            document.getElementById('order-status').innerHTML = 'Order submitted successfully! Total price: $' + totalPrice;
+        } else {
+            document.getElementById('order-status').innerHTML = 'Please select at least one item.';
+        }
+    }
+</script>
 </body>
 </html>
